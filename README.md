@@ -16,6 +16,10 @@
 - @types/jsonwebtoken
 - @types/node
 - typescript
+- ejs
+- nodemailer
+- npm i --save-dev @types/ejs
+- npm i --save-dev @types/nodemailer
 - npx tsc --init
 
 ### CLOUD
