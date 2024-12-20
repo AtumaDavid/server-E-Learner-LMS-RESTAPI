@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LMS Activation Email</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .email-container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        color: #333;
+        border-bottom: 2px solid #4a90e2;
+        padding-bottom: 15px;
+      }
+      .content {
+        margin-top: 20px;
+        color: #666;
+      }
+      .activation-code {
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+        padding: 12px 20px;
+        background-color: #4a90e2;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+      .footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <h1>Activate Your LMS Account</h1>
+      </div>
+      <div class="content">
+        <p>Hello <%= user.name %>,</p>
+        <p>
+          Welcome to our Learning Management System! Use the activation code
+          below to complete your account setup:
+        </p>
+
+        <div class="activation-code"><%= activationCode %></div>
+
+        <p>
+          This code will expire in 5 minutes. If you did not request this
+          activation, please ignore this email.
+        </p>
+      </div>
+      <div class="footer">
+        <p>
+          &copy; <%= new Date().getFullYear() %> Your LMS Platform. All rights
+          reserved.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
