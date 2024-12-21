@@ -24,6 +24,6 @@
 
 ### CLOUD
 
-- Upstash
+- Upstash - redis
 - Cloudinary
 - MongoDB
