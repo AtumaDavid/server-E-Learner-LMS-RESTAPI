@@ -265,3 +265,34 @@ export const getUserInfo = CatchAsyncError(
     }
   }
 );
+
+interface ISocialAuthBody {
+  name: string;
+  email: string;
+  avatar: string;
+}
+
+// SOCIAL AUTH
+export const socialAuth = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { name, email, avatar }: ISocialAuthBody = req.body;
+
+      const user = await userModel.findOne({ email });
+
+      if (!user) {
+        // sendToken(user, 200, res);
+        const newUser = await userModel.create({
+          name,
+          email,
+          avatar,
+        });
+        sendToken(newUser, 200, res);
+      } else {
+        sendToken(user, 200, res);
+      }
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
