@@ -6,9 +6,10 @@ import jwt, { Secret } from "jsonwebtoken";
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
+import { sendToken } from "../utils/jwt";
 require("dotenv").config();
 
-// register user
+// REGISTER USER
 interface IRegistration {
   name: string;
   email: string;
@@ -61,6 +62,8 @@ export const registerUser = CatchAsyncError(
   }
 );
 
+// CREATE ACTIVATION TOKEN
+
 interface IActivationToken {
   token: string;
   activationCode: string;
@@ -86,7 +89,7 @@ export const createActivationToken = (
   return { token, activationCode };
 };
 
-// activate users
+// ACTIVATE USERS
 interface IActivationRequest {
   activation_code: string;
   activation_token: string;
@@ -123,6 +126,56 @@ export const activateUser = CatchAsyncError(
       res.status(201).json({
         success: true,
         message: "Account activated successfully",
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// LOGIN USER
+interface ILogin {
+  email: string;
+  password: string;
+}
+
+export const loginUser = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email, password }: ILogin = req.body;
+
+      if (!email || !password) {
+        return next(new ErrorHandler("Please enter email & password", 400));
+      }
+
+      const user = await userModel.findOne({ email }).select("+password");
+
+      if (!user) {
+        return next(new ErrorHandler("Invalid email or password", 401));
+      }
+
+      const isPasswordMatched = await user.comparePassword(password);
+
+      if (!isPasswordMatched) {
+        return next(new ErrorHandler("Invalid email or password", 401));
+      }
+
+      sendToken(user, 200, res);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// LOGOUT USER
+export const logoutUser = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.cookie("access_token", "", { maxAge: 1 });
+      res.cookie("refresh_token", "", { maxAge: 1 });
+      res.status(200).json({
+        success: true,
+        message: "Logged out successfully",
       });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
