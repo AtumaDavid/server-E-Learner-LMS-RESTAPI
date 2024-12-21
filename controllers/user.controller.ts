@@ -12,6 +12,7 @@ import {
   sendToken,
 } from "../utils/jwt";
 import { redis } from "../utils/redis";
+import { getUserById } from "../services/user.service";
 require("dotenv").config();
 
 // REGISTER USER
@@ -246,6 +247,19 @@ export const updateAccessToken = CatchAsyncError(
         accessToken,
         // refreshToken,
       });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// GET USER INFO
+export const getUserInfo = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // const userId = req.user?._id;
+      const userId = req.user?._id ? req.user._id.toString() : "";
+      getUserById(userId, res);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
