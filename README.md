@@ -18,6 +18,7 @@
 - typescript
 - ejs
 - nodemailer
+- cloudinary
 - npm i --save-dev @types/ejs
 - npm i --save-dev @types/nodemailer
 - npx tsc --init
