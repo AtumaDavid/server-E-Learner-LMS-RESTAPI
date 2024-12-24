@@ -29,6 +29,8 @@
 - Cloudinary
 - MongoDB
 
+## Course Model
+
 ![alt text](courseSchema.png)
 
 ### Core Components
