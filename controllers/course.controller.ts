@@ -124,3 +124,38 @@ export const getAllCourses = CatchAsyncError(
     }
   }
 );
+
+// GET COURSE CONTENT --ONLY FOR VALID USER
+export const getCourseByUser = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Retrieve the list of courses associated with the logged-in user
+      const userCourseList = req.user?.courses;
+
+      const courseId = req.params.id;
+
+      // Check if the user has purchased/enrolled in the course
+      const courseExists = userCourseList?.find(
+        // Compare the course ID from the request with user's courses
+        (course: any) => course._id.toString() === courseId
+      );
+
+      if (!courseExists) {
+        return next(
+          new ErrorHandler("you are not eligible to access this course", 404)
+        );
+      }
+
+      // If the user is authorized, find the full course details in the database
+      const course = await CourseModel.findById(courseId);
+      const content = course?.courseData;
+
+      res.status(200).json({
+        success: true,
+        content,
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
