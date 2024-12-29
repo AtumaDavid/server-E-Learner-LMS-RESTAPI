@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        color: #333;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 15px;
+      }
+      .order-details {
+        margin-top: 20px;
+      }
+      .order-details table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .order-details th,
+      .order-details td {
+        padding: 10px;
+        border-bottom: 1px solid #e0e0e0;
+        text-align: left;
+      }
+      .total {
+        text-align: right;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .footer {
+        margin-top: 30px;
+        text-align: center;
+        color: #777;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Order Confirmation</h1>
+        <p>Thank you for your purchase!</p>
+      </div>
+
+      <div class="order-details">
+        <h2>Order Summary</h2>
+        <table>
+          <tr>
+            <th>Order Number</th>
+            <td>#<%= order._id %></td>
+          </tr>
+          <tr>
+            <th>Course Name</th>
+            <td><%= order.name %></td>
+          </tr>
+          <tr>
+            <th>Purchase Date</th>
+            <td><%= order.date %></td>
+          </tr>
+          <tr>
+            <th>Price</th>
+            <td>$<%= order.price %></td>
+          </tr>
+        </table>
+
+        <div class="total">Total: $<%= order.price %></div>
+      </div>
+
+      <div class="footer">
+        <p>If you have any questions, please contact our support team.</p>
+        <p>&copy; <%= new Date().getFullYear() %> Your Learning Platform</p>
+      </div>
+    </div>
+  </body>
+</html>
