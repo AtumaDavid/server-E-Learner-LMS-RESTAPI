@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { ErrorMiddleware } from "./middleware/error";
 import userRouter from "./routes/user.routes";
 import courseRouter from "./routes/course.routes";
+import orderRouter from "./routes/order.routes";
 require("dotenv").config();
 
 // body parser
@@ -25,6 +26,7 @@ app.use(
 // routes
 app.use("/api/v1", userRouter);
 app.use("/api/v1", courseRouter);
+app.use("/api/v1", orderRouter);
 
 // testing api
 app.get("/test", (req: Request, res: Response, next: NextFunction) => {
