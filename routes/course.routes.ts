@@ -6,6 +6,7 @@ import {
   addReview,
   editCourse,
   getAllCourses,
+  getAllCoursesAdmin,
   getCourseByUser,
   getSingleCourse,
   replyReview,
@@ -52,6 +53,14 @@ courseRouter.put(
   isAuthenticated,
   authorizeRoles("admin"),
   replyReview
+);
+
+// GET ALL COURSES --ADMIN
+courseRouter.get(
+  "/get-courses-admin",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  getAllCoursesAdmin
 );
 
 export default courseRouter;
