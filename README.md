@@ -19,6 +19,8 @@
 - ejs
 - nodemailer
 - cloudinary
+- npm i node-cron
+- npm i @types/node-cron
 - npm i --save-dev @types/ejs
 - npm i --save-dev @types/nodemailer
 - npx tsc --init
