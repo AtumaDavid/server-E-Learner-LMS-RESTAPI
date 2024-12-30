@@ -9,6 +9,7 @@ import CourseModel from "../models/course.model";
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
+import NotificationModel from "../models/notification.model";
 
 // UPLOAD COURSE
 export const uploadCourse = CatchAsyncError(
@@ -204,6 +205,13 @@ export const addQuestion = CatchAsyncError(
       // Add the new question to the specific course content's questions array
       courseContent.questions.push(newQuestion);
 
+      // Create a notification for the user
+      await NotificationModel.create({
+        user: req.user?._id,
+        title: "New Question Received",
+        message: `You have a new question in  ${courseContent.title}`,
+      });
+
       // save the updated course
       await course?.save();
 
@@ -270,6 +278,12 @@ export const addAnswer = CatchAsyncError(
 
       if (req.user?._id === question.user._id) {
         // create a notification
+        // Create a notification for the user
+        await NotificationModel.create({
+          user: req.user?._id,
+          title: "New Question Reply Received",
+          message: `You have a new question reply in  ${courseContent.title}`,
+        });
       } else {
         const data = {
           name: question.user.name,
