@@ -8,6 +8,7 @@ import courseRouter from "./routes/course.routes";
 import orderRouter from "./routes/order.routes";
 import notificationRoute from "./routes/notification.route";
 import analyticsRouter from "./routes/analytics.route";
+import layoutRouter from "./routes/layout.route";
 require("dotenv").config();
 
 // body parser
@@ -31,6 +32,7 @@ app.use("/api/v1", courseRouter);
 app.use("/api/v1", orderRouter);
 app.use("/api/v1", notificationRoute);
 app.use("/api/v1", analyticsRouter);
+app.use("/api/v1", layoutRouter);
 
 // testing api
 app.get("/test", (req: Request, res: Response, next: NextFunction) => {
