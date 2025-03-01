@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: server-e-learner-lms-restapi
+    env: node
+    branch: master # or your main branch
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_URL
+        value: mongodb+srv://atumadavid35:azblvuM80Lx4xGFS@lms.qryfp.mongodb.net/?retryWrites=true&w=majority&appName=LMS
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dbomiu1gv
+      - key: CLOUDINARY_API_KEY
+        value: 918894279655851
+      - key: CLOUDINARY_API_SECRET
+        sync: false # Prompt in dashboard instead of hardcoding
+      - key: ACTIVATION_SECRET
+        sync: false # Sensitive, set in dashboard
+      - key: ACCESS_TOKEN
+        sync: false
+      - key: REFRESH_TOKEN
+        sync: false
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_SERVICE
+        value: gmail
+      - key: SMTP_EMAIL
+        value: atumadavid35@gmail.com
+      - key: SMTP_PASSWORD
+        sync: false # Sensitive, set in dashboard
+      - key: ACCESS_TOKEN_EXPIRE
+        value: 3600
+      - key: REFRESH_TOKEN_EXPIRE
+        value: 86400
+      - key: ORIGIN
+        value: http://localhost:3000,http://localhost:3001,http://localhost:3002 # Update for production later
