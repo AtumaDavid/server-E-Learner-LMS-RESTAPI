@@ -9,7 +9,8 @@ services:
       - key: NODE_ENV
         value: production
       - key: DB_URL
-        value: mongodb+srv://atumadavid35:azblvuM80Lx4xGFS@lms.qryfp.mongodb.net/?retryWrites=true&w=majority&appName=LMS
+        # value: mongodb+srv://atumadavid35:azblvuM80Lx4xGFS@lms.qryfp.mongodb.net/?retryWrites=true&w=majority&appName=LMS
+        value: mongodb+srv://atumadavid35:azblvuM80Lx4xGFS@lms.qryfp.mongodb.net/LMS-elearner?retryWrites=true&w=majority&appName=LMS
       - key: CLOUDINARY_CLOUD_NAME
         value: dbomiu1gv
       - key: CLOUDINARY_API_KEY
