@@ -97,7 +97,7 @@ export const refreshTokenOptions: ITokensOptions = {
   maxAge: refreshTokenExpire * 24 * 60 * 60 * 1000,
   httpOnly: true,
   sameSite: "lax",
-  // secure: true, // only works in https
+  secure: true, // only works in https
 };
 
 export const sendToken = (user: IUser, statusCode: number, res: Response) => {
