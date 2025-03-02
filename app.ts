@@ -21,7 +21,11 @@ app.use(cookieParser());
 app.use(
   cors({
     // origin: process.env.ORIGIN,
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://lms-frontend-next.vercel.app",
+    ],
     credentials: true,
     optionsSuccessStatus: 200,
   })
