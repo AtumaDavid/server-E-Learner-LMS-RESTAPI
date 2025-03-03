@@ -11,25 +11,37 @@ import analyticsRouter from "./routes/analytics.route";
 import layoutRouter from "./routes/layout.route";
 require("dotenv").config();
 
-// body parser
-app.use(express.json({ limit: "50mb" }));
-
-// cookie parser
-app.use(cookieParser());
-
 // cors
 app.use(
   cors({
     // origin: process.env.ORIGIN,
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "https://lms-frontend-next.vercel.app",
-    ],
+    // origin: [
+    //   "http://localhost:3000",
+    //   "http://localhost:3001",
+    //   "https://lms-frontend-next.vercel.app",
+    // ],
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "https://lms-frontend-next.vercel.app",
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     optionsSuccessStatus: 200,
   })
 );
+
+// cookie parser
+app.use(cookieParser());
+
+// body parser
+app.use(express.json({ limit: "50mb" }));
 
 // routes
 app.use("/api/v1", userRouter);

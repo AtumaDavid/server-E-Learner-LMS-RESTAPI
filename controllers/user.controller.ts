@@ -717,7 +717,7 @@ export const updateAccessToken = CatchAsyncError(
         process.env.REFRESH_TOKEN as string
       ) as jwt.JwtPayload & { id: string };
 
-      if (!decoded) {
+      if (!decoded || !decoded.id) {
         return next(new ErrorHandler("Refresh token not valid", 400));
       }
 
@@ -726,9 +726,7 @@ export const updateAccessToken = CatchAsyncError(
       const user = await userModel.findById(decoded.id);
 
       if (!user) {
-        return next(
-          new ErrorHandler("Please login to access this resource", 400)
-        );
+        return next(new ErrorHandler("User not found", 400));
       }
 
       const accessToken = jwt.sign(
