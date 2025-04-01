@@ -681,14 +681,42 @@ export const loginUser = CatchAsyncError(
 );
 
 // LOGOUT USER
+// export const logoutUser = CatchAsyncError(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       res.cookie("access_token", "", { maxAge: 1 });
+//       res.cookie("refresh_token", "", { maxAge: 1 });
+
+//       const userId = req.user?._id?.toString() || "";
+//       // Redis reference removed
+
+//       res.status(200).json({
+//         success: true,
+//         message: "Logged out successfully",
+//       });
+//     } catch (error: any) {
+//       return next(new ErrorHandler(error.message, 400));
+//     }
+//   }
+// );
 export const logoutUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.cookie("access_token", "", { maxAge: 1 });
-      res.cookie("refresh_token", "", { maxAge: 1 });
+      res.cookie("access_token", "", {
+        path: "/",
+        httpOnly: true,
+        secure: true, // Ensure it's only sent over HTTPS
+        sameSite: "strict",
+        expires: new Date(0), // Set expiration to the past
+      });
 
-      const userId = req.user?._id?.toString() || "";
-      // Redis reference removed
+      res.cookie("refresh_token", "", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        expires: new Date(0),
+      });
 
       res.status(200).json({
         success: true,
@@ -699,6 +727,7 @@ export const logoutUser = CatchAsyncError(
     }
   }
 );
+
 
 // UPDATE ACCESS TOKEN
 export const updateAccessToken = CatchAsyncError(
