@@ -705,17 +705,19 @@ export const logoutUser = CatchAsyncError(
       res.cookie("access_token", "", {
         path: "/",
         httpOnly: true,
-        secure: true, // Ensure it's only sent over HTTPS
-        sameSite: "strict",
-        expires: new Date(0), // Set expiration to the past
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Match jwt.ts
+        expires: new Date(0),
+        maxAge: 0, // Explicitly set to 0
       });
 
       res.cookie("refresh_token", "", {
         path: "/",
         httpOnly: true,
-        secure: true,
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Match jwt.ts
         expires: new Date(0),
+        maxAge: 0, // Explicitly set to 0
       });
 
       res.status(200).json({

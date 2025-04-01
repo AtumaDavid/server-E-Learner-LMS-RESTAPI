@@ -84,24 +84,40 @@ const refreshTokenExpire = parseInt(
   10
 );
 
+// export const accessTokenOptions: ITokensOptions = {
+//   expires: new Date(Date.now() + accessTokenExpire * 60 * 60 * 1000),
+//   maxAge: accessTokenExpire * 60 * 60 * 1000,
+//   httpOnly: true,
+//   // sameSite: "lax",
+//   // // secure: true, // only works in https
+//   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cross-site in production
+//   secure: process.env.NODE_ENV === "production", // HTTPS only in production
+// };
+
+// export const refreshTokenOptions: ITokensOptions = {
+//   expires: new Date(Date.now() + refreshTokenExpire * 24 * 60 * 60 * 1000),
+//   maxAge: refreshTokenExpire * 24 * 60 * 60 * 1000,
+//   httpOnly: true,
+//   // sameSite: "lax",
+//   // secure: true, // only works in https
+//   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cross-site in production
+//   secure: process.env.NODE_ENV === "production", // HTTPS only in production
+// };
+
 export const accessTokenOptions: ITokensOptions = {
-  expires: new Date(Date.now() + accessTokenExpire * 60 * 60 * 1000),
-  maxAge: accessTokenExpire * 60 * 60 * 1000,
+  expires: new Date(Date.now() + accessTokenExpire * 1000), // Seconds to milliseconds
+  maxAge: accessTokenExpire * 1000, // Seconds to milliseconds
   httpOnly: true,
-  // sameSite: "lax",
-  // // secure: true, // only works in https
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cross-site in production
-  secure: process.env.NODE_ENV === "production", // HTTPS only in production
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: process.env.NODE_ENV === "production",
 };
 
 export const refreshTokenOptions: ITokensOptions = {
-  expires: new Date(Date.now() + refreshTokenExpire * 24 * 60 * 60 * 1000),
-  maxAge: refreshTokenExpire * 24 * 60 * 60 * 1000,
+  expires: new Date(Date.now() + refreshTokenExpire * 1000), // Seconds to milliseconds
+  maxAge: refreshTokenExpire * 1000, // Seconds to milliseconds
   httpOnly: true,
-  // sameSite: "lax",
-  // secure: true, // only works in https
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cross-site in production
-  secure: process.env.NODE_ENV === "production", // HTTPS only in production
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: process.env.NODE_ENV === "production",
 };
 
 export const sendToken = (user: IUser, statusCode: number, res: Response) => {
